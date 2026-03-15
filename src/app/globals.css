@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 :root {
   --background: #ffffff;
@@ -23,4 +24,55 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Tiptap editor styles */
+.tiptap {
+  outline: none;
+}
+
+.tiptap p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  color: #adb5bd;
+  pointer-events: none;
+  float: left;
+  height: 0;
+}
+
+/* YouTube iframe wrapper */
+.tiptap div[data-youtube-video] {
+  cursor: default;
+}
+
+.tiptap div[data-youtube-video] iframe {
+  max-width: 100%;
+}
+
+/* Toolbar button styles */
+.toolbar-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.15s;
+  border: none;
+  background: transparent;
+  color: #374151;
+}
+
+.toolbar-btn:hover {
+  background-color: #e5e7eb;
+}
+
+.toolbar-btn.is-active {
+  background-color: #dbeafe;
+  color: #1d4ed8;
+}
+
+.toolbar-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
 }

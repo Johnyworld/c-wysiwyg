@@ -1,0 +1,161 @@
+{
+  "version": "2.0",
+  "lastUpdated": "2026-03-15T13:48:30.318Z",
+  "activeFeatures": [
+    "extensions",
+    "c-wysiwyg",
+    "editor",
+    "toolbar"
+  ],
+  "primaryFeature": "extensions",
+  "features": {
+    "extensions": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-15T13:42:48.836Z",
+        "lastUpdated": "2026-03-15T13:43:33.853Z"
+      },
+      "lastFile": "/Users/gimjaehwan/dev/c-wysiwyg/src/extensions/YoutubePaste.ts"
+    },
+    "c-wysiwyg": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-15T13:42:54.299Z",
+        "lastUpdated": "2026-03-15T13:45:32.851Z"
+      },
+      "lastFile": "/Users/gimjaehwan/dev/c-wysiwyg/src/app/page.tsx"
+    },
+    "editor": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-15T13:43:16.624Z",
+        "lastUpdated": "2026-03-15T13:48:30.318Z"
+      },
+      "lastFile": "/Users/gimjaehwan/dev/c-wysiwyg/src/components/editor/EditorPage.tsx"
+    },
+    "toolbar": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-15T13:44:18.639Z",
+        "lastUpdated": "2026-03-15T13:44:38.635Z"
+      },
+      "lastFile": "/Users/gimjaehwan/dev/c-wysiwyg/src/components/editor/toolbar/AlignmentControl.tsx"
+    }
+  },
+  "pipeline": {
+    "currentPhase": 1,
+    "level": "Dynamic",
+    "phaseHistory": []
+  },
+  "session": {
+    "startedAt": "2026-03-15T13:13:24.506Z",
+    "onboardingCompleted": false,
+    "lastActivity": "2026-03-15T13:48:30.318Z"
+  },
+  "history": [
+    {
+      "timestamp": "2026-03-15T13:42:48.836Z",
+      "feature": "extensions",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-15T13:42:54.299Z",
+      "feature": "c-wysiwyg",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-15T13:43:16.624Z",
+      "feature": "editor",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-15T13:43:33.853Z",
+      "feature": "extensions",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-15T13:43:46.921Z",
+      "feature": "editor",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-15T13:44:05.107Z",
+      "feature": "editor",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-15T13:44:18.639Z",
+      "feature": "toolbar",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-15T13:44:25.379Z",
+      "feature": "toolbar",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-15T13:44:32.255Z",
+      "feature": "toolbar",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-15T13:44:38.635Z",
+      "feature": "toolbar",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-15T13:44:56.594Z",
+      "feature": "editor",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-15T13:45:18.909Z",
+      "feature": "editor",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-15T13:45:32.851Z",
+      "feature": "c-wysiwyg",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-15T13:48:30.318Z",
+      "feature": "editor",
+      "phase": "do",
+      "action": "updated"
+    }
+  ]
+}
