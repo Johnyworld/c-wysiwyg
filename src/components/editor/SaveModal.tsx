@@ -39,6 +39,7 @@ export function SaveModal({ isOpen, html, onClose }: SaveModalProps) {
   const [mounted, setMounted] = useState(false)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
 
+  // eslint-disable-next-line react-hooks/set-state-in-effect -- required for SSR hydration guard with createPortal
   useEffect(() => { setMounted(true) }, [])
 
   useEffect(() => {
@@ -57,7 +58,6 @@ export function SaveModal({ isOpen, html, onClose }: SaveModalProps) {
       setTimeout(() => setCopied(false), 2000)
     } catch {
       textareaRef.current?.select()
-      // eslint-disable-next-line @typescript-eslint/no-deprecated
       document.execCommand('copy')
     }
   }

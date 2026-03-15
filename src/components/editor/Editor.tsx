@@ -11,7 +11,6 @@ interface EditorProps {
 
 export function Editor({ editorRef, onDrop, onDragOver, onPaste }: EditorProps) {
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-deprecated
     document.execCommand('defaultParagraphSeparator', false, 'p')
   }, [])
 
