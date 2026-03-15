@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "lastUpdated": "2026-03-15T13:48:30.318Z",
+  "lastUpdated": "2026-03-15T14:28:43.503Z",
   "activeFeatures": [
     "extensions",
     "c-wysiwyg",
@@ -44,9 +44,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-15T13:43:16.624Z",
-        "lastUpdated": "2026-03-15T13:48:30.318Z"
+        "lastUpdated": "2026-03-15T14:19:44.071Z"
       },
-      "lastFile": "/Users/gimjaehwan/dev/c-wysiwyg/src/components/editor/EditorPage.tsx"
+      "lastFile": "/Users/gimjaehwan/dev/c-wysiwyg/src/components/editor/Toolbar.tsx"
     },
     "toolbar": {
       "phase": "do",
@@ -57,7 +57,7 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-15T13:44:18.639Z",
-        "lastUpdated": "2026-03-15T13:44:38.635Z"
+        "lastUpdated": "2026-03-15T14:28:43.503Z"
       },
       "lastFile": "/Users/gimjaehwan/dev/c-wysiwyg/src/components/editor/toolbar/AlignmentControl.tsx"
     }
@@ -70,7 +70,7 @@
   "session": {
     "startedAt": "2026-03-15T13:13:24.506Z",
     "onboardingCompleted": false,
-    "lastActivity": "2026-03-15T13:48:30.318Z"
+    "lastActivity": "2026-03-15T14:28:43.503Z"
   },
   "history": [
     {
@@ -154,6 +154,60 @@
     {
       "timestamp": "2026-03-15T13:48:30.318Z",
       "feature": "editor",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-15T14:09:32.313Z",
+      "feature": "editor",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-15T14:17:17.260Z",
+      "feature": "editor",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-15T14:17:58.413Z",
+      "feature": "editor",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-15T14:19:44.071Z",
+      "feature": "editor",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-15T14:20:17.179Z",
+      "feature": "toolbar",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-15T14:21:56.672Z",
+      "feature": "toolbar",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-15T14:23:10.062Z",
+      "feature": "toolbar",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-15T14:23:28.044Z",
+      "feature": "toolbar",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-15T14:28:43.503Z",
+      "feature": "toolbar",
       "phase": "do",
       "action": "updated"
     }

@@ -26,26 +26,13 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Tiptap editor styles */
-.tiptap {
-  outline: none;
-}
-
-.tiptap p.is-editor-empty:first-child::before {
+/* Editor placeholder */
+.wysiwyg-editor:empty::before {
   content: attr(data-placeholder);
   color: #adb5bd;
   pointer-events: none;
   float: left;
   height: 0;
-}
-
-/* YouTube iframe wrapper */
-.tiptap div[data-youtube-video] {
-  cursor: default;
-}
-
-.tiptap div[data-youtube-video] iframe {
-  max-width: 100%;
 }
 
 /* Toolbar button styles */

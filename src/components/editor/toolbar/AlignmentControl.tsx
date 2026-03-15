@@ -1,37 +1,33 @@
 'use client'
 
-import { Editor } from '@tiptap/react'
+import { FormatState } from '../types'
 
 interface Props {
-  editor: Editor
+  formatState: FormatState
+  execCommand: (command: string) => void
 }
 
 const ALIGNMENTS = [
-  { value: 'left', label: '≡', title: 'Align left' },
-  { value: 'center', label: '≡', title: 'Align center' },
-  { value: 'right', label: '≡', title: 'Align right' },
-  { value: 'justify', label: '≡', title: 'Justify' },
-] as const
+  { cmd: 'justifyLeft', icon: '⇤', title: 'Align left', key: 'alignLeft' as keyof FormatState },
+  { cmd: 'justifyCenter', icon: '↔', title: 'Align center', key: 'alignCenter' as keyof FormatState },
+  { cmd: 'justifyRight', icon: '⇥', title: 'Align right', key: 'alignRight' as keyof FormatState },
+  { cmd: 'justifyFull', icon: '⇔', title: 'Justify', key: 'alignJustify' as keyof FormatState },
+]
 
-// Use unicode characters for alignment icons
-const ICONS: Record<string, string> = {
-  left: '⇤',
-  center: '↔',
-  right: '⇥',
-  justify: '⇔',
-}
-
-export function AlignmentControl({ editor }: Props) {
+export function AlignmentControl({ formatState, execCommand }: Props) {
   return (
     <>
-      {ALIGNMENTS.map(({ value, title }) => (
+      {ALIGNMENTS.map(({ cmd, icon, title, key }) => (
         <button
-          key={value}
-          className={`toolbar-btn${editor.isActive({ textAlign: value }) ? ' is-active' : ''}`}
-          onClick={() => editor.chain().focus().setTextAlign(value).run()}
+          key={cmd}
+          className={`toolbar-btn${formatState[key] ? ' is-active' : ''}`}
+          onMouseDown={(e) => {
+            e.preventDefault()
+            execCommand(cmd)
+          }}
           title={title}
         >
-          {ICONS[value]}
+          {icon}
         </button>
       ))}
     </>

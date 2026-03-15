@@ -1,14 +1,16 @@
 'use client'
 
 import { useState } from 'react'
-import { Editor } from '@tiptap/react'
+import { FormatState } from './types'
 import { HeadingControl } from './toolbar/HeadingControl'
 import { FontSizeControl } from './toolbar/FontSizeControl'
 import { ColorControl } from './toolbar/ColorControl'
 import { AlignmentControl } from './toolbar/AlignmentControl'
 
-interface ToolbarProps {
-  editor: Editor | null
+export interface ToolbarProps {
+  formatState: FormatState
+  execCommand: (command: string, value?: string) => void
+  applyFontSize: (size: string) => void
   onSave: () => void
   onYoutubeEmbed: (url: string) => void
 }
@@ -17,11 +19,15 @@ function Divider() {
   return <div className="w-px h-6 bg-gray-200 mx-1" />
 }
 
-export function Toolbar({ editor, onSave, onYoutubeEmbed }: ToolbarProps) {
+export function Toolbar({
+  formatState,
+  execCommand,
+  applyFontSize,
+  onSave,
+  onYoutubeEmbed,
+}: ToolbarProps) {
   const [youtubeInput, setYoutubeInput] = useState('')
   const [showYoutubeInput, setShowYoutubeInput] = useState(false)
-
-  if (!editor) return null
 
   const handleYoutubeSubmit = () => {
     if (youtubeInput.trim()) {
@@ -31,45 +37,54 @@ export function Toolbar({ editor, onSave, onYoutubeEmbed }: ToolbarProps) {
     }
   }
 
+  // Prevent editor losing focus when clicking toolbar buttons
+  const md = (fn: () => void) => (e: React.MouseEvent) => {
+    e.preventDefault()
+    fn()
+  }
+
   return (
     <div className="flex flex-wrap items-center gap-0.5 px-3 py-2 bg-gray-50 border-b border-gray-200">
       {/* Heading */}
-      <HeadingControl editor={editor} />
+      <HeadingControl
+        value={formatState.heading}
+        onChange={(val) => execCommand('formatBlock', val)}
+      />
       <Divider />
 
       {/* Font size */}
-      <FontSizeControl editor={editor} />
+      <FontSizeControl onApply={applyFontSize} />
       <Divider />
 
       {/* Text color */}
-      <ColorControl editor={editor} />
+      <ColorControl color={formatState.color} onApply={(c) => execCommand('foreColor', c)} />
       <Divider />
 
       {/* Bold / Italic / Underline / Strike */}
       <button
-        className={`toolbar-btn font-bold${editor.isActive('bold') ? ' is-active' : ''}`}
-        onClick={() => editor.chain().focus().toggleBold().run()}
+        className={`toolbar-btn font-bold${formatState.bold ? ' is-active' : ''}`}
+        onMouseDown={md(() => execCommand('bold'))}
         title="Bold"
       >
         B
       </button>
       <button
-        className={`toolbar-btn italic${editor.isActive('italic') ? ' is-active' : ''}`}
-        onClick={() => editor.chain().focus().toggleItalic().run()}
+        className={`toolbar-btn italic${formatState.italic ? ' is-active' : ''}`}
+        onMouseDown={md(() => execCommand('italic'))}
         title="Italic"
       >
         I
       </button>
       <button
-        className={`toolbar-btn underline${editor.isActive('underline') ? ' is-active' : ''}`}
-        onClick={() => editor.chain().focus().toggleUnderline().run()}
+        className={`toolbar-btn underline${formatState.underline ? ' is-active' : ''}`}
+        onMouseDown={md(() => execCommand('underline'))}
         title="Underline"
       >
         U
       </button>
       <button
-        className={`toolbar-btn line-through${editor.isActive('strike') ? ' is-active' : ''}`}
-        onClick={() => editor.chain().focus().toggleStrike().run()}
+        className={`toolbar-btn line-through${formatState.strikeThrough ? ' is-active' : ''}`}
+        onMouseDown={md(() => execCommand('strikeThrough'))}
         title="Strikethrough"
       >
         S
@@ -77,20 +92,20 @@ export function Toolbar({ editor, onSave, onYoutubeEmbed }: ToolbarProps) {
       <Divider />
 
       {/* Text alignment */}
-      <AlignmentControl editor={editor} />
+      <AlignmentControl formatState={formatState} execCommand={execCommand} />
       <Divider />
 
       {/* Lists */}
       <button
-        className={`toolbar-btn${editor.isActive('bulletList') ? ' is-active' : ''}`}
-        onClick={() => editor.chain().focus().toggleBulletList().run()}
+        className="toolbar-btn"
+        onMouseDown={md(() => execCommand('insertUnorderedList'))}
         title="Bullet list"
       >
         • List
       </button>
       <button
-        className={`toolbar-btn${editor.isActive('orderedList') ? ' is-active' : ''}`}
-        onClick={() => editor.chain().focus().toggleOrderedList().run()}
+        className="toolbar-btn"
+        onMouseDown={md(() => execCommand('insertOrderedList'))}
         title="Ordered list"
       >
         1. List
@@ -100,16 +115,14 @@ export function Toolbar({ editor, onSave, onYoutubeEmbed }: ToolbarProps) {
       {/* Undo / Redo */}
       <button
         className="toolbar-btn"
-        onClick={() => editor.chain().focus().undo().run()}
-        disabled={!editor.can().undo()}
+        onMouseDown={md(() => execCommand('undo'))}
         title="Undo"
       >
         ↩
       </button>
       <button
         className="toolbar-btn"
-        onClick={() => editor.chain().focus().redo().run()}
-        disabled={!editor.can().redo()}
+        onMouseDown={md(() => execCommand('redo'))}
         title="Redo"
       >
         ↪
@@ -133,13 +146,13 @@ export function Toolbar({ editor, onSave, onYoutubeEmbed }: ToolbarProps) {
           />
           <button
             className="text-sm bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
-            onClick={handleYoutubeSubmit}
+            onMouseDown={md(handleYoutubeSubmit)}
           >
             Embed
           </button>
           <button
             className="text-sm text-gray-500 px-1 hover:text-gray-700"
-            onClick={() => setShowYoutubeInput(false)}
+            onMouseDown={md(() => setShowYoutubeInput(false))}
           >
             ✕
           </button>
@@ -147,7 +160,7 @@ export function Toolbar({ editor, onSave, onYoutubeEmbed }: ToolbarProps) {
       ) : (
         <button
           className="toolbar-btn"
-          onClick={() => setShowYoutubeInput(true)}
+          onMouseDown={md(() => setShowYoutubeInput(true))}
           title="Embed YouTube video"
         >
           ▶ YouTube
