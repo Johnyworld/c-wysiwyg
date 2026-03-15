@@ -10,13 +10,13 @@ export function HeadingControl({ value, onChange }: Props) {
     <select
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      className="text-sm border border-gray-200 rounded px-2 py-1 bg-white cursor-pointer"
-      title="Heading"
+      className="toolbar-select w-28"
+      title="단락 스타일"
     >
       <option value="p">Paragraph</option>
-      <option value="h1">H1</option>
-      <option value="h2">H2</option>
-      <option value="h3">H3</option>
+      <option value="h1">Heading 1</option>
+      <option value="h2">Heading 2</option>
+      <option value="h3">Heading 3</option>
     </select>
   )
 }

@@ -47,11 +47,10 @@ export function EditorPage() {
         color: rawColor ? rgbToHex(rawColor) : '#000000',
       })
     } catch {
-      // ignore — queryCommand can throw in some edge cases
+      // ignore
     }
   }, [])
 
-  // Track selection changes; only save when inside the editor
   useEffect(() => {
     const handler = () => {
       const sel = window.getSelection()
@@ -66,7 +65,6 @@ export function EditorPage() {
     return () => document.removeEventListener('selectionchange', handler)
   }, [updateFormatState])
 
-  // Restore last saved selection and focus editor
   const restoreSelection = useCallback(() => {
     editorRef.current?.focus()
     if (savedRangeRef.current) {
@@ -76,7 +74,6 @@ export function EditorPage() {
     }
   }, [])
 
-  // Execute a document command (restores selection first)
   const execCommand = useCallback(
     (command: string, value?: string) => {
       restoreSelection()
@@ -86,7 +83,6 @@ export function EditorPage() {
     [restoreSelection, updateFormatState]
   )
 
-  // Apply font size by wrapping selection in a span (execCommand fontSize only supports 1-7)
   const applyFontSize = useCallback(
     (size: string) => {
       restoreSelection()
@@ -94,24 +90,19 @@ export function EditorPage() {
       if (!sel || sel.rangeCount === 0) return
       const range = sel.getRangeAt(0)
       if (range.collapsed) return
-
-      // Clone selected content to preserve inline HTML (bold, italic, etc.)
       const fragment = range.cloneContents()
       const tmp = document.createElement('div')
       tmp.appendChild(fragment)
-      const selectedHTML = tmp.innerHTML
-
       document.execCommand(
         'insertHTML',
         false,
-        `<span style="font-size:${size}">${selectedHTML}</span>`
+        `<span style="font-size:${size}">${tmp.innerHTML}</span>`
       )
       updateFormatState()
     },
     [restoreSelection, updateFormatState]
   )
 
-  // Image drag-and-drop
   const handleDrop = useCallback(async (e: React.DragEvent) => {
     const files = Array.from(e.dataTransfer.files).filter((f) =>
       f.type.startsWith('image/')
@@ -124,7 +115,7 @@ export function EditorPage() {
       document.execCommand(
         'insertHTML',
         false,
-        `<img src="${src}" style="max-width:100%">`
+        `<img src="${src}" style="max-width:100%;border-radius:6px">`
       )
     }
   }, [])
@@ -133,7 +124,6 @@ export function EditorPage() {
     if (Array.from(e.dataTransfer.types).includes('Files')) e.preventDefault()
   }, [])
 
-  // YouTube URL paste detection
   const handlePaste = useCallback((e: React.ClipboardEvent) => {
     const text = e.clipboardData.getData('text/plain')
     const match = text.match(YOUTUBE_REGEX)
@@ -143,15 +133,14 @@ export function EditorPage() {
       document.execCommand(
         'insertHTML',
         false,
-        `<div style="margin:8px 0"><iframe width="640" height="480" ` +
+        `<div style="margin:12px 0"><iframe width="640" height="480" ` +
           `src="https://www.youtube-nocookie.com/embed/${videoId}" frameborder="0" ` +
           `allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" ` +
-          `allowfullscreen style="max-width:100%"></iframe></div>`
+          `allowfullscreen style="max-width:100%;border-radius:8px"></iframe></div>`
       )
     }
   }, [])
 
-  // YouTube embed from toolbar URL input
   const handleYoutubeEmbed = useCallback(
     (url: string) => {
       const match = url.match(YOUTUBE_REGEX)
@@ -161,10 +150,10 @@ export function EditorPage() {
       document.execCommand(
         'insertHTML',
         false,
-        `<div style="margin:8px 0"><iframe width="640" height="480" ` +
+        `<div style="margin:12px 0"><iframe width="640" height="480" ` +
           `src="https://www.youtube-nocookie.com/embed/${videoId}" frameborder="0" ` +
           `allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" ` +
-          `allowfullscreen style="max-width:100%"></iframe></div>`
+          `allowfullscreen style="max-width:100%;border-radius:8px"></iframe></div>`
       )
       editorRef.current?.focus()
     },
@@ -178,25 +167,32 @@ export function EditorPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-4xl mx-auto py-8 px-4">
-        <h1 className="text-2xl font-bold text-gray-800 mb-6">WYSIWYG Editor</h1>
-        <div className="bg-white rounded-xl shadow border border-gray-200 overflow-hidden">
-          <Toolbar
-            formatState={formatState}
-            execCommand={execCommand}
-            applyFontSize={applyFontSize}
-            onSave={handleSave}
-            onYoutubeEmbed={handleYoutubeEmbed}
-          />
-          <Editor
-            editorRef={editorRef}
-            onDrop={handleDrop}
-            onDragOver={handleDragOver}
-            onPaste={handlePaste}
-          />
+    <div className="min-h-screen bg-slate-100 py-10 px-4">
+      {/* Header */}
+      <div className="max-w-4xl mx-auto mb-6 flex items-center justify-between">
+        <div>
+          <h1 className="text-xl font-semibold text-slate-800 tracking-tight">문서 편집기</h1>
+          <p className="text-sm text-slate-400 mt-0.5">이미지를 드래그하거나 YouTube URL을 붙여넣어 삽입하세요</p>
         </div>
       </div>
+
+      {/* Editor card */}
+      <div className="max-w-4xl mx-auto rounded-xl bg-white shadow-[0_1px_3px_0_rgb(0,0,0,0.06),0_4px_12px_0_rgb(0,0,0,0.04)] overflow-hidden ring-1 ring-slate-900/5">
+        <Toolbar
+          formatState={formatState}
+          execCommand={execCommand}
+          applyFontSize={applyFontSize}
+          onSave={handleSave}
+          onYoutubeEmbed={handleYoutubeEmbed}
+        />
+        <Editor
+          editorRef={editorRef}
+          onDrop={handleDrop}
+          onDragOver={handleDragOver}
+          onPaste={handlePaste}
+        />
+      </div>
+
       <SaveModal
         isOpen={isModalOpen}
         html={savedHtml}

@@ -17,14 +17,12 @@ export function FontSizeControl({ onApply }: Props) {
           e.target.value = ''
         }
       }}
-      className="text-sm border border-gray-200 rounded px-2 py-1 bg-white cursor-pointer w-20"
-      title="Font size"
+      className="toolbar-select w-20"
+      title="글자 크기"
     >
-      <option value="">Size</option>
+      <option value="" disabled>크기</option>
       {FONT_SIZES.map((size) => (
-        <option key={size} value={size}>
-          {size}
-        </option>
+        <option key={size} value={size}>{size}</option>
       ))}
     </select>
   )

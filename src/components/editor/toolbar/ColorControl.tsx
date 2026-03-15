@@ -12,24 +12,23 @@ export function ColorControl({ color, onApply }: Props) {
 
   return (
     <button
-      className="toolbar-btn flex items-center gap-1"
+      type="button"
+      className="toolbar-btn flex-col gap-0.5 w-auto px-2"
       onMouseDown={(e) => {
         e.preventDefault()
         inputRef.current?.click()
       }}
-      title="Text color"
+      title="글자 색상"
     >
-      <span className="text-sm font-bold" style={{ color, textShadow: '0 0 1px #0002' }}>
-        A
-      </span>
-      <span className="block w-4 h-1 rounded" style={{ backgroundColor: color }} />
+      <span className="text-sm font-bold leading-none" style={{ color }}>A</span>
+      <span className="block w-4 h-0.5 rounded-full" style={{ backgroundColor: color }} />
       <input
         ref={inputRef}
         type="color"
         value={color}
         onChange={(e) => onApply(e.target.value)}
         className="sr-only"
-        aria-label="Text color"
+        aria-label="글자 색상"
       />
     </button>
   )
