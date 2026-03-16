@@ -72,23 +72,23 @@ export function SaveModal({ isOpen, html, onClose }: SaveModalProps) {
       className="modal-backdrop fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-[2px] p-4"
       onClick={(e) => { if (e.target === e.currentTarget) onClose() }}
     >
-      <div className="modal-panel bg-white rounded-2xl shadow-[0_8px_32px_0_rgb(0,0,0,0.16),0_2px_8px_0_rgb(0,0,0,0.08)] w-full max-w-2xl flex flex-col max-h-[82vh] ring-1 ring-slate-900/8">
+      <div className="modal-panel bg-[var(--bg-surface)] rounded-2xl shadow-[var(--shadow-modal)] w-full max-w-2xl flex flex-col max-h-[82vh] ring-1 ring-slate-900/8 dark:ring-white/10">
         {/* Header */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-[var(--border)]">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center text-slate-500">
+            <div className="w-8 h-8 rounded-lg bg-[var(--border)] flex items-center justify-center text-[var(--text-muted)]">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="16 18 22 12 16 6" /><polyline points="8 6 2 12 8 18" />
               </svg>
             </div>
             <div>
-              <h2 className="text-sm font-semibold text-slate-800">HTML 출력</h2>
-              <p className="text-xs text-slate-400 mt-0.5">{charCount}자 · {lineCount}줄</p>
+              <h2 className="text-sm font-semibold text-[var(--text-primary)]">HTML 출력</h2>
+              <p className="text-xs text-[var(--text-muted)] mt-0.5">{charCount}자 · {lineCount}줄</p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors"
+            className="w-8 h-8 rounded-lg flex items-center justify-center text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--border)] transition-colors"
             aria-label="닫기"
           >
             <CloseIcon />
@@ -107,18 +107,18 @@ export function SaveModal({ isOpen, html, onClose }: SaveModalProps) {
         </div>
 
         {/* Footer */}
-        <div className="flex items-center justify-between px-5 py-3.5 border-t border-slate-100 bg-slate-50/60 rounded-b-2xl">
-          <p className="text-xs text-slate-400">Esc로 닫기</p>
+        <div className="flex items-center justify-between px-5 py-3.5 border-t border-[var(--border)] bg-[var(--bg-toolbar)] rounded-b-2xl">
+          <p className="text-xs text-[var(--text-muted)]">Esc로 닫기</p>
           <div className="flex gap-2">
             <button
               onClick={handleCopy}
-              className="inline-flex items-center gap-1.5 text-xs font-medium bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 px-3.5 h-8 rounded-lg transition-colors shadow-sm"
+              className="inline-flex items-center gap-1.5 text-xs font-medium bg-[var(--bg-surface)] hover:bg-[var(--border)] text-[var(--text-primary)] border border-[var(--border)] px-3.5 h-8 rounded-lg transition-colors shadow-sm"
             >
               {copied ? <><CheckIcon />복사됨</> : <><CopyIcon />복사</>}
             </button>
             <button
               onClick={onClose}
-              className="inline-flex items-center text-xs font-semibold bg-slate-800 hover:bg-slate-900 text-white px-4 h-8 rounded-lg transition-colors shadow-sm"
+              className="inline-flex items-center text-xs font-semibold bg-slate-700 hover:bg-slate-800 dark:bg-slate-600 dark:hover:bg-slate-500 text-white px-4 h-8 rounded-lg transition-colors shadow-sm"
             >
               닫기
             </button>

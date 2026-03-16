@@ -16,7 +16,7 @@ export interface ToolbarProps {
 }
 
 function Sep() {
-  return <div className="w-px h-5 bg-slate-200 mx-1 shrink-0" />
+  return <div className="w-px h-5 bg-[var(--border)] mx-1 shrink-0" />
 }
 
 function Btn({
@@ -126,7 +126,7 @@ export function Toolbar({
   }
 
   return (
-    <div className="flex flex-wrap items-center gap-0.5 px-3 py-2 bg-[#FAFAFA] border-b border-slate-200 min-h-11.5">
+    <div className="flex flex-wrap items-center gap-0.5 px-3 py-2 bg-[var(--bg-toolbar)] border-b border-[var(--border)] min-h-11.5">
       {/* Heading */}
       <HeadingControl
         value={formatState.heading}
@@ -191,7 +191,7 @@ export function Toolbar({
               if (e.key === 'Escape') setShowYoutubeInput(false)
             }}
             placeholder="YouTube URL 입력..."
-            className="text-xs border border-slate-200 rounded-md px-2.5 h-7.5 w-52 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100 transition-all bg-white"
+            className="text-xs border border-[var(--border)] rounded-md px-2.5 h-7.5 w-52 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900 transition-all bg-[var(--bg-surface)] text-[var(--text-primary)] placeholder:text-[var(--text-muted)]"
             autoFocus
           />
           <button

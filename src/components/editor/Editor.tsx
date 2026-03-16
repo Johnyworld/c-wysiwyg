@@ -22,7 +22,7 @@ export function Editor({ editorRef, onDrop, onDragOver, onPaste }: EditorProps) 
       onDrop={onDrop}
       onDragOver={onDragOver}
       onPaste={onPaste}
-      className="wysiwyg-editor prose prose-slate prose-sm sm:prose max-w-none min-h-130 p-6 focus:outline-none"
+      className="wysiwyg-editor prose prose-slate dark:prose-invert prose-sm sm:prose max-w-none min-h-130 p-6 focus:outline-none bg-[var(--bg-surface)] text-[var(--text-primary)] transition-colors duration-200"
       data-placeholder="여기에 내용을 입력하세요..."
     />
   )

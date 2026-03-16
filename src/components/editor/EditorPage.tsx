@@ -22,12 +22,50 @@ function rgbToHex(rgb: string): string {
   )
 }
 
+function SunIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="5" />
+      <line x1="12" y1="1" x2="12" y2="3" /><line x1="12" y1="21" x2="12" y2="23" />
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" /><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+      <line x1="1" y1="12" x2="3" y2="12" /><line x1="21" y1="12" x2="23" y2="12" />
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" /><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+    </svg>
+  )
+}
+
+function MoonIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+    </svg>
+  )
+}
+
 export function EditorPage() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [savedHtml, setSavedHtml] = useState('')
+  const [isDark, setIsDark] = useState(false)
   const editorRef = useRef<HTMLDivElement>(null)
   const savedRangeRef = useRef<Range | null>(null)
   const [formatState, setFormatState] = useState<FormatState>(defaultFormatState)
+
+  useEffect(() => {
+    const stored = localStorage.getItem('theme')
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const dark = stored ? stored === 'dark' : prefersDark
+    setIsDark(dark)
+    document.documentElement.classList.toggle('dark', dark)
+  }, [])
+
+  const toggleTheme = () => {
+    setIsDark((prev) => {
+      const next = !prev
+      document.documentElement.classList.toggle('dark', next)
+      localStorage.setItem('theme', next ? 'dark' : 'light')
+      return next
+    })
+  }
 
   const updateFormatState = useCallback(() => {
     try {
@@ -167,17 +205,25 @@ export function EditorPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-100 py-10 px-4">
+    <div className="min-h-screen bg-[var(--bg-page)] py-10 px-4 transition-colors duration-200">
       {/* Header */}
       <div className="max-w-4xl mx-auto mb-6 flex items-center justify-between">
         <div>
-          <h1 className="text-xl font-semibold text-slate-800 tracking-tight">문서 편집기</h1>
-          <p className="text-sm text-slate-400 mt-0.5">이미지를 드래그하거나 YouTube URL을 붙여넣어 삽입하세요</p>
+          <h1 className="text-xl font-semibold text-[var(--text-primary)] tracking-tight">문서 편집기</h1>
+          <p className="text-sm text-[var(--text-muted)] mt-0.5">이미지를 드래그하거나 YouTube URL을 붙여넣어 삽입하세요</p>
         </div>
+        <button
+          type="button"
+          onClick={toggleTheme}
+          className="w-9 h-9 rounded-lg flex items-center justify-center text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--border)] transition-colors"
+          title={isDark ? '라이트 모드로 전환' : '다크 모드로 전환'}
+        >
+          {isDark ? <SunIcon /> : <MoonIcon />}
+        </button>
       </div>
 
       {/* Editor card */}
-      <div className="max-w-4xl mx-auto rounded-xl bg-white shadow-[0_1px_3px_0_rgb(0,0,0,0.06),0_4px_12px_0_rgb(0,0,0,0.04)] overflow-hidden ring-1 ring-slate-900/5">
+      <div className="max-w-4xl mx-auto rounded-xl bg-[var(--bg-surface)] shadow-[var(--shadow-card)] overflow-hidden ring-1 ring-slate-900/5 dark:ring-white/10 transition-colors duration-200">
         <Toolbar
           formatState={formatState}
           execCommand={execCommand}
